@@ -2086,15 +2086,19 @@ Duration: {duration}
                 "-o",
                 str(html_path),
             ])
+            # Use forward slashes: Chrome on Windows rejects backslash paths in --print-to-pdf.
+            pdf_path_str = pdf_path.as_posix() if os.name == "nt" else str(pdf_path)
             run([
                 find_chrome(),
                 "--headless=new",
                 "--disable-gpu",
                 "--no-sandbox",
-                "--no-pdf-header-footer",
-                f"--print-to-pdf={pdf_path}",
+                "--print-to-pdf-no-header-footer",
+                f"--print-to-pdf={pdf_path_str}",
                 html_path.resolve().as_uri(),
             ])
+            if not pdf_path.exists() or pdf_path.stat().st_size == 0:
+                raise SystemExit(f"Chrome ran but did not write PDF to {pdf_path}")
             paths["html"] = html_path
         else:
             cmd = [
