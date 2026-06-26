@@ -1,0 +1,17 @@
+# Local environment
+.env
+.env.*
+
+# Generated outputs
+youtube-transcripts/
+youtube-transcripts-fr/
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db
