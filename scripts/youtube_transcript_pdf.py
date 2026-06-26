@@ -2086,19 +2086,34 @@ Duration: {duration}
                 "-o",
                 str(html_path),
             ])
-            # Use forward slashes: Chrome on Windows rejects backslash paths in --print-to-pdf.
-            pdf_path_str = pdf_path.as_posix() if os.name == "nt" else str(pdf_path)
+            # Write to a temp path then replace so we can detect Chrome failures even when
+            # an old PDF already exists (Chrome exits 0 whether or not it wrote the file).
+            # Always resolve to absolute: Chrome ignores CWD and rejects relative paths.
+            pdf_tmp = pdf_path.with_suffix(".chrome.tmp.pdf")
+            pdf_tmp_str = pdf_tmp.resolve().as_posix() if os.name == "nt" else str(pdf_tmp.resolve())
             run([
                 find_chrome(),
                 "--headless=new",
                 "--disable-gpu",
                 "--no-sandbox",
                 "--print-to-pdf-no-header-footer",
-                f"--print-to-pdf={pdf_path_str}",
+                f"--print-to-pdf={pdf_tmp_str}",
                 html_path.resolve().as_uri(),
             ])
-            if not pdf_path.exists() or pdf_path.stat().st_size == 0:
+            if not pdf_tmp.exists() or pdf_tmp.stat().st_size == 0:
+                if pdf_tmp.exists():
+                    pdf_tmp.unlink()
                 raise SystemExit(f"Chrome ran but did not write PDF to {pdf_path}")
+            try:
+                pdf_tmp.replace(pdf_path)
+            except PermissionError:
+                # Destination locked (e.g. open in a PDF viewer); keep the temp file.
+                print(
+                    f"[pdf] Warning: could not replace {pdf_path.name} (file locked)."
+                    f" Output saved as {pdf_tmp.name}",
+                    file=sys.stderr,
+                )
+                pdf_path = pdf_tmp
             paths["html"] = html_path
         else:
             cmd = [
