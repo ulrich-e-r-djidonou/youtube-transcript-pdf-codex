@@ -11,6 +11,7 @@ This repository publishes a Codex skill for creating readable PDF transcripts fr
 - Preserve UTF-8 handling for all transcript, Markdown, JSON, and audit files.
 - Keep Windows Chrome/Edge detection working.
 - For French captions, keep French document labels and disable English topic headings.
+- Never include local machine paths (e.g. C:\Users\<username>\...) in any committed file. Use generic descriptions instead.
 
 ## Verification
 
