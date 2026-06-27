@@ -13,7 +13,7 @@ This is a Windows-ready fork/adaptation of the `youtube-transcript-pdf` skill fr
 - Disabled English topic headings for French transcripts.
 - Long dash normalization in YouTube titles.
 
-## Install In Codex
+## Install In Codex / Installation dans Codex
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo ulrich-e-r-djidonou/youtube-transcript-pdf-codex --path .
@@ -21,7 +21,7 @@ python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-s
 
 Restart Codex after installing.
 
-## Usage
+## Usage / Utilisation
 
 ```powershell
 python scripts\youtube_transcript_pdf.py "https://www.youtube.com/watch?v=VIDEO_ID" --lang fr --no-whisper --summary-provider extractive
@@ -29,8 +29,10 @@ python scripts\youtube_transcript_pdf.py "https://www.youtube.com/watch?v=VIDEO_
 
 The default output directory is `youtube-transcripts/<video_id>/`.
 
-## Attribution
+## Attribution / Attribution
 
 Original skill source: [aniketpanjwani/skills](https://github.com/aniketpanjwani/skills/tree/main/skills/general/youtube-transcript-pdf)
 
 License: MIT, copyright Aniket Panjwani. See [LICENSE](LICENSE).
+
+The `-codex` suffix is only part of the repository name, used to distinguish this fork on GitHub. The actual Codex skill name stays `youtube-transcript-pdf`.
