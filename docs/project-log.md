@@ -22,4 +22,4 @@ Corrections included:
 Validation:
 
 - `python -m py_compile scripts\youtube_transcript_pdf.py`
-- PDF generation smoke test was previously run from the copied skill in `C:\Users\ciram\OneDrive\Documents\statusline`.
+- PDF generation smoke test validated on Windows.
