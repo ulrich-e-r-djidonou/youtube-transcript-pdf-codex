@@ -16,7 +16,7 @@ This is a Windows-ready fork/adaptation of the `youtube-transcript-pdf` skill fr
 ## Install In Codex
 
 ```powershell
-python C:\Users\ciram\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py --repo ulrich-e-r-djidonou/youtube-transcript-pdf-codex --path .
+python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo ulrich-e-r-djidonou/youtube-transcript-pdf-codex --path .
 ```
 
 Restart Codex after installing.
